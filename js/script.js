@@ -9,7 +9,7 @@ const chatMessages = document.getElementById('chat-messages');
 const chatItems = document.querySelectorAll('.chat-item');
 const notificationToast = document.getElementById('notification-toast');
 const groupTitles = document.querySelectorAll('.group-title');
-const soundToggle = document.getElementById('sound-toggle');
+// Sound toggle removed
 
 // State Management
 let currentTheme = localStorage.getItem('theme') || 'light';
@@ -80,8 +80,7 @@ function init() {
     // Set Adinkra toggle color based on theme
     updateAdinkraToggle();
     
-    // Update sound toggle icon based on preference
-    updateSoundToggle();
+    // Sound toggle functionality removed
     
     // Initialize typing effects
     initTypingEffects();
@@ -665,90 +664,29 @@ function initTypingEffects() {
             element.setAttribute('data-text', text);
         }
             
-            // Create a function to type the text
-            function typeText() {
-                if (!element || !text) return;
-                
-                let i = 0;
-                const typingInterval = setInterval(() => {
-                    if (i < text.length) {
-                        element.textContent += text.charAt(i);
-                        i++;
-                    } else {
-                        clearInterval(typingInterval);
-                        // After a delay, clear and start again
-                        setTimeout(() => {
-                            if (element) element.textContent = '';
-                            setTimeout(typeText, 500);
-                        }, 2000);
-                    }
-                }, 100);
+        // Create a function to type the text
+        function typeText() {
+            if (!element || !text) return;
+            
+            let i = 0;
+            const typingInterval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typingInterval);
+                    // After a delay, clear and start again
+                    setTimeout(() => {
+                        if (element) element.textContent = '';
+                        setTimeout(typeText, 500);
+                    }, 2000);
+                }
+            }, 100);
         }
         
         // Start typing after a random delay
         setTimeout(typeText, Math.random() * 1000);
-        });
-    }
-    const proverbToast = document.createElement('div');
-    proverbToast.classList.add('proverb-toast');
-    
-    const proverb = proverbs[Math.floor(Math.random() * proverbs.length)];
-    proverbToast.textContent = proverb;
-    
-    document.body.appendChild(proverbToast);
-    
-    setTimeout(() => {
-        proverbToast.classList.add('active');
-    }, 100);
-    
-    setTimeout(() => {
-        proverbToast.classList.remove('active');
-        setTimeout(() => {
-            document.body.removeChild(proverbToast);
-        }, 300);
-    }, 50    proverbToast.classList.add('proverb-toast');
-    
-    const proverb = proverbs[Math.floor(Math.random() * proverbs.length)];
-    proverbToast.textContent = proverb;
-    
-    document.body.appendChild(proverbToast);
-    
-    // Add active class after a small delay to trigger animation
-    setTimeout(() => {
-        proverbToast.classList.add('active');
-    }, 100);
-    
-    // Remove toast after 5 seconds
-    setTimeout(() => {
-        proverbToast.classList.remove('active');
-        setTimeout(() => {
-            document.body.removeChild(proverbToast);
-        }, 300); // Wait for fade out animation
-    }, 5000);
-}
-
-// Initialize the app
-init();00);
-    const proverbToast = document.createElement('div');
-    proverbToast.classList.add('proverb-toast');
-    
-    const proverb = proverbs[Math.floor(Math.random() * proverbs.length)];
-    proverbToast.textContent = proverb;
-    
-    document.body.appendChild(proverbToast);
-    
-    // Add active class after a small delay to trigger animation
-    setTimeout(() => {
-        proverbToast.classList.add('active');
-    }, 100);
-    
-    // Remove toast after 5 seconds
-    setTimeout(() => {
-        proverbToast.classList.remove('active');
-        setTimeout(() => {
-            document.body.removeChild(proverbToast);
-        }, 300); // Wait for fade out animation
-    }, 5000);
+    });
 }
 
 // Initialize the app
