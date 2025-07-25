@@ -2,7 +2,7 @@
 
 ## 📱 Overview
 
-Kokonsa is a chat interface simulation prototype with a Ghanaian-inspired design. The name "Kokonsa" comes from the Twi language, meaning "to chat" or "to gossip". This prototype simulates a real chat application with pre-filled conversations, typing animations, emoji reactions, and more.
+Kokonsa is an intended social media platform, but this is a simulation prototype.
 
 ## 🛠️ Core Features
 
@@ -48,16 +48,6 @@ Kokonsa is a chat interface simulation prototype with a Ghanaian-inspired design
 ### LocalStorage Persistence
 - Save simulated conversations across sessions
 - Message drafts persist before "sending"
-
-## 🚀 How to Use
-
-1. Open `index.html` in a web browser
-2. Interact with the chat interface:
-   - Click on different chats in the sidebar to switch conversations
-   - Type a message and click the send button (or press Enter)
-   - Click the emoji button to open the emoji picker
-   - Click on received messages to add a reaction
-   - Toggle between light and dark mode using the moon/sun icon
 
 ## 🧩 Project Structure
 

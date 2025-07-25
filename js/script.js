@@ -1,4 +1,5 @@
 // DOM Elements
+const adinkraToggle = document.getElementById('adinkra-toggle');
 const themeToggle = document.querySelector('.theme-toggle');
 const emojiButton = document.querySelector('.emoji-button');
 const emojiPicker = document.getElementById('emoji-picker');
@@ -8,7 +9,6 @@ const chatMessages = document.getElementById('chat-messages');
 const chatItems = document.querySelectorAll('.chat-item');
 const notificationToast = document.getElementById('notification-toast');
 const groupTitles = document.querySelectorAll('.group-title');
-const adinkraToggle = document.getElementById('adinkra-toggle');
 const soundToggle = document.getElementById('sound-toggle');
 
 // State Management
@@ -90,20 +90,25 @@ function init() {
 // Event Listeners
 function addEventListeners() {
     // Theme toggle
-    themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
     
     // Adinkra toggle - show a cultural fact or proverb
-    adinkraToggle.addEventListener('click', showGhanaianProverb);
+    if (adinkraToggle) {
+        adinkraToggle.addEventListener('click', showGhanaianProverb);
+    }
     
-    // Sound toggle
-    soundToggle.addEventListener('click', toggleSound);
+    // Sound toggle removed
     
     // Emoji picker toggle
-    emojiButton.addEventListener('click', toggleEmojiPicker);
+    if (emojiButton) {
+        emojiButton.addEventListener('click', toggleEmojiPicker);
+    }
     
     // Close emoji picker when clicking outside
     document.addEventListener('click', (e) => {
-        if (!emojiButton.contains(e.target) && !emojiPicker.contains(e.target)) {
+        if (emojiButton && emojiPicker && !emojiButton.contains(e.target) && !emojiPicker.contains(e.target)) {
             emojiPicker.classList.remove('active');
         }
     });
@@ -113,59 +118,75 @@ function addEventListeners() {
     emojis.forEach(emoji => {
         emoji.addEventListener('click', () => {
             insertEmoji(emoji.dataset.emoji);
-            emojiPicker.classList.remove('active');
+            if (emojiPicker) {
+                emojiPicker.classList.remove('active');
+            }
         });
     });
     
     // Send message
-    sendButton.addEventListener('click', sendMessage);
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
     
-    // Save draft message
-    messageInput.addEventListener('input', () => {
-        draftMessages[currentChat] = messageInput.value;
-        localStorage.setItem('draftMessages', JSON.stringify(draftMessages));
-    });
-    
-    // Chat item selection
-    chatItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Save current draft
+    if (messageInput) {
+        // Send message on Enter key
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Save draft message
+        messageInput.addEventListener('input', () => {
             draftMessages[currentChat] = messageInput.value;
-            
-            // Update active chat
-            document.querySelector('.chat-item.active')?.classList.remove('active');
-            item.classList.add('active');
-            currentChat = item.dataset.chat;
-            
-            // Update chat header
-            updateChatHeader(currentChat);
-            
-            // Load messages for this chat
-            loadMessages(currentChat);
-            
-            // Load draft message if exists
-            messageInput.value = draftMessages[currentChat] || '';
-            
-            // Save to localStorage
             localStorage.setItem('draftMessages', JSON.stringify(draftMessages));
         });
-    });
+    }
+    
+    // Chat item selection
+    if (chatItems && chatItems.length > 0) {
+        chatItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Save current draft
+                if (messageInput) {
+                    draftMessages[currentChat] = messageInput.value;
+                }
+                
+                // Update active chat
+                document.querySelector('.chat-item.active')?.classList.remove('active');
+                item.classList.add('active');
+                currentChat = item.dataset.chat;
+                
+                // Update chat header
+                updateChatHeader(currentChat);
+                
+                // Load messages for this chat
+                loadMessages(currentChat);
+                
+                // Load draft message if exists
+                if (messageInput) {
+                    messageInput.value = draftMessages[currentChat] || '';
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('draftMessages', JSON.stringify(draftMessages));
+            });
+        });
+    }
     
     // Add click listeners to message bubbles for reaction
     document.addEventListener('click', (e) => {
-        if (e.target.closest('.message-bubble')) {
-            const messageBubble = e.target.closest('.message-bubble');
+        const messageBubble = e.target.closest('.message-bubble');
+        if (messageBubble) {
             const messageElement = messageBubble.closest('.message');
-            const messageIndex = Array.from(messageElement.parentNode.children).indexOf(messageElement) - 1; // -1 for date divider
-            
-            // Only allow reactions on received messages
-            if (messageElement.classList.contains('received')) {
-                addReaction(messageIndex, '👍');
+            if (messageElement) {
+                const messageIndex = Array.from(messageElement.parentNode.children).indexOf(messageElement) - 1; // -1 for date divider
+                
+                // Only allow reactions on received messages
+                if (messageElement.classList.contains('received')) {
+                    addReaction(messageIndex, '👍');
+                }
             }
         }
     });
@@ -182,20 +203,30 @@ function addEventListeners() {
 
 // Theme Functions
 function setTheme(theme) {
-    document.body.className = `${theme}-mode`;
-    themeToggle.innerHTML = theme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    if (document.body) {
+        document.body.className = `${theme}-mode`;
+    }
+    
+    if (themeToggle) {
+        themeToggle.innerHTML = theme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    }
+    
     currentTheme = theme;
     localStorage.setItem('theme', theme);
     updateAdinkraToggle();
 }
 
 function updateAdinkraToggle() {
+    if (!adinkraToggle) return;
+    
     if (currentTheme === 'dark') {
         adinkraToggle.style.backgroundColor = '#f7b731'; // Kente gold
-        adinkraToggle.querySelector('img').style.filter = 'brightness(0) invert(1)';
+        const img = adinkraToggle.querySelector('img');
+        if (img) img.style.filter = 'brightness(0) invert(1)';
     } else {
         adinkraToggle.style.backgroundColor = '#3867d6'; // Kente blue
-        adinkraToggle.querySelector('img').style.filter = 'brightness(0) invert(1)';
+        const img = adinkraToggle.querySelector('img');
+        if (img) img.style.filter = 'brightness(0) invert(1)';
     }
 }
 
@@ -206,10 +237,13 @@ function toggleTheme() {
 
 // Emoji Functions
 function toggleEmojiPicker() {
+    if (!emojiPicker) return;
     emojiPicker.classList.toggle('active');
 }
 
 function insertEmoji(emoji) {
+    if (!messageInput) return;
+    
     messageInput.value += emoji;
     messageInput.focus();
     
@@ -220,6 +254,8 @@ function insertEmoji(emoji) {
 
 // Message Functions
 function sendMessage() {
+    if (!messageInput) return;
+    
     const text = messageInput.value.trim();
     if (!text) return;
     
@@ -245,7 +281,9 @@ function sendMessage() {
     addMessageToUI(newMessage);
     
     // Play sound
-    soundManager.play('messageSent');
+    if (soundManager) {
+        soundManager.play('messageSent');
+    }
     
     // Clear input and draft
     messageInput.value = '';
@@ -271,12 +309,16 @@ function sendMessage() {
         localStorage.setItem('conversations', JSON.stringify(conversations));
         
         addMessageToUI(replyMessage);
-        soundManager.play('messageReceived');
+        if (soundManager) {
+            soundManager.play('messageReceived');
+        }
         stopTyping();
     }, 3000);
 }
 
 function addMessageToUI(message) {
+    if (!chatMessages || !message) return;
+    
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', message.sender);
     
@@ -300,15 +342,17 @@ function addMessageToUI(message) {
     }
     
     html += `
-                <p>${message.text}</p>
-                <span class="time">${message.time}</span>
+                <p>${message.text || ''}</p>
+                <span class="time">${message.time || ''}</span>
             </div>
             <div class="message-reactions">
     `;
     
-    message.reactions.forEach(reaction => {
-        html += `<div class="reaction">${reaction.emoji} ${reaction.count}</div>`;
-    });
+    if (message.reactions && Array.isArray(message.reactions)) {
+        message.reactions.forEach(reaction => {
+            html += `<div class="reaction">${reaction.emoji} ${reaction.count}</div>`;
+        });
+    }
     
     html += `
             </div>
@@ -323,6 +367,8 @@ function addMessageToUI(message) {
 }
 
 function loadMessages(chatId) {
+    if (!chatMessages) return;
+    
     // Clear current messages
     while (chatMessages.children.length > 1) { // Keep the date divider
         chatMessages.removeChild(chatMessages.lastChild);
@@ -337,10 +383,13 @@ function loadMessages(chatId) {
 
 function updateChatHeader(chatId) {
     const chatHeader = document.querySelector('.chat-header .chat-user-info');
+    if (!chatHeader) return;
+    
     const chatItem = document.querySelector(`.chat-item[data-chat="${chatId}"]`);
     
     if (chatItem) {
-        const name = chatItem.querySelector('h4').textContent;
+        const nameElement = chatItem.querySelector('h4');
+        const name = nameElement ? nameElement.textContent : 'Chat';
         const avatar = chatItem.querySelector('img')?.src || '';
         const isGroup = chatItem.querySelector('.group-avatar') !== null;
         
@@ -380,6 +429,8 @@ function updateChatHeader(chatId) {
 // Typing Indicator
 function simulateTyping() {
     const statusText = document.querySelector('.chat-header .status-text');
+    if (!statusText) return;
+    
     const chatId = currentChat;
     
     // Only show typing for individual chats, not groups
@@ -396,6 +447,8 @@ function simulateTyping() {
 
 function stopTyping() {
     const statusText = document.querySelector('.chat-header .status-text');
+    if (!statusText) return;
+    
     const chatId = currentChat;
     
     if (!document.querySelector(`.chat-item[data-chat="${chatId}"] .group-avatar`)) {
@@ -406,8 +459,12 @@ function stopTyping() {
 
 // Notification
 function showNotification() {
+    if (!notificationToast) return;
+    
     notificationToast.classList.add('active');
-    soundManager.play('notification');
+    if (soundManager) {
+        soundManager.play('notification');
+    }
     
     setTimeout(() => {
         notificationToast.classList.remove('active');
@@ -436,6 +493,8 @@ function addReaction(messageIndex, emoji) {
 
 // Helper Functions
 function getAvatarForChat(chatId, user) {
+    if (!chatId) return 'https://randomuser.me/api/portraits/lego/1.jpg';
+    
     if (chatId === 'kwame') {
         return 'https://randomuser.me/api/portraits/men/32.jpg';
     } else if (chatId === 'akosua') {
@@ -470,6 +529,8 @@ function getAvatarForChat(chatId, user) {
 }
 
 function getGroupMembersText(chatId) {
+    if (!chatId) return 'Group Members';
+    
     if (chatId === 'the-boys') {
         return 'Kofi, Kwesi, You';
     } else if (chatId === 'sister-szn') {
@@ -516,6 +577,8 @@ function getRandomUser(chatId) {
 
 // Ghanaian Proverb Toast
 function showGhanaianProverb() {
+    if (!document.body) return;
+    
     const proverbs = [
         'Knowledge is like a garden; if it is not cultivated, it cannot be harvested.',
         'The ruin of a nation begins in the homes of its people.',
@@ -571,63 +634,28 @@ function showGhanaianProverb() {
     }, 5000);
     
     // Rotate the Adinkra toggle
-    adinkraToggle.style.transform = 'rotate(180deg)';
-    setTimeout(() => {
-        adinkraToggle.style.transform = 'rotate(0)';
-    }, 500);
-}
-
-// Sound Functions
-function toggleSound() {
-    const isMuted = soundManager.toggle();
-    updateSoundToggle();
-    
-    // Show feedback toast
-    const feedbackToast = document.createElement('div');
-    feedbackToast.classList.add('proverb-toast');
-    feedbackToast.style.maxWidth = '250px';
-    
-    feedbackToast.innerHTML = `
-        <div class="proverb-icon">
-            <i class="${isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up'}"></i>
-        </div>
-        <div class="proverb-content">
-            <h4>Sound ${isMuted ? 'Muted' : 'Enabled'}</h4>
-            <p>Message sounds are now ${isMuted ? 'off' : 'on'}.</p>
-        </div>
-    `;
-    
-    document.body.appendChild(feedbackToast);
-    
-    setTimeout(() => {
-        feedbackToast.classList.add('active');
-    }, 10);
-    
-    setTimeout(() => {
-        feedbackToast.classList.remove('active');
+    if (adinkraToggle) {
+        adinkraToggle.style.transform = 'rotate(180deg)';
         setTimeout(() => {
-            document.body.removeChild(feedbackToast);
-        }, 300);
-    }, 2000);
-}
-
-function updateSoundToggle() {
-    if (soundManager.enabled) {
-        soundToggle.classList.remove('muted');
-        soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-    } else {
-        soundToggle.classList.add('muted');
-        soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            adinkraToggle.style.transform = 'rotate(0)';
+        }, 500);
     }
 }
+
+// Sound Functions removed
 
 // Initialize typing effects for elements with typing-effect class
 function initTypingEffects() {
     const typingElements = document.querySelectorAll('.typing-effect');
     
+    if (!typingElements || typingElements.length === 0) return;
+    
     typingElements.forEach(element => {
+        if (!element) return;
+        
         // Get the text content or data-text attribute
         const text = element.getAttribute('data-text') || element.textContent;
+        if (!text) return;
         
         // Clear the element's text content
         element.textContent = '';
@@ -636,28 +664,91 @@ function initTypingEffects() {
         if (!element.getAttribute('data-text')) {
             element.setAttribute('data-text', text);
         }
-        
-        // Create a function to type the text
-        function typeText() {
-            let i = 0;
-            const typingInterval = setInterval(() => {
-                if (i < text.length) {
-                    element.textContent += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(typingInterval);
-                    // After a delay, clear and start again
-                    setTimeout(() => {
-                        element.textContent = '';
-                        setTimeout(typeText, 500);
-                    }, 2000);
-                }
-            }, 100);
+            
+            // Create a function to type the text
+            function typeText() {
+                if (!element || !text) return;
+                
+                let i = 0;
+                const typingInterval = setInterval(() => {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typingInterval);
+                        // After a delay, clear and start again
+                        setTimeout(() => {
+                            if (element) element.textContent = '';
+                            setTimeout(typeText, 500);
+                        }, 2000);
+                    }
+                }, 100);
         }
         
         // Start typing after a random delay
         setTimeout(typeText, Math.random() * 1000);
-    });
+        });
+    }
+    const proverbToast = document.createElement('div');
+    proverbToast.classList.add('proverb-toast');
+    
+    const proverb = proverbs[Math.floor(Math.random() * proverbs.length)];
+    proverbToast.textContent = proverb;
+    
+    document.body.appendChild(proverbToast);
+    
+    setTimeout(() => {
+        proverbToast.classList.add('active');
+    }, 100);
+    
+    setTimeout(() => {
+        proverbToast.classList.remove('active');
+        setTimeout(() => {
+            document.body.removeChild(proverbToast);
+        }, 300);
+    }, 50    proverbToast.classList.add('proverb-toast');
+    
+    const proverb = proverbs[Math.floor(Math.random() * proverbs.length)];
+    proverbToast.textContent = proverb;
+    
+    document.body.appendChild(proverbToast);
+    
+    // Add active class after a small delay to trigger animation
+    setTimeout(() => {
+        proverbToast.classList.add('active');
+    }, 100);
+    
+    // Remove toast after 5 seconds
+    setTimeout(() => {
+        proverbToast.classList.remove('active');
+        setTimeout(() => {
+            document.body.removeChild(proverbToast);
+        }, 300); // Wait for fade out animation
+    }, 5000);
+}
+
+// Initialize the app
+init();00);
+    const proverbToast = document.createElement('div');
+    proverbToast.classList.add('proverb-toast');
+    
+    const proverb = proverbs[Math.floor(Math.random() * proverbs.length)];
+    proverbToast.textContent = proverb;
+    
+    document.body.appendChild(proverbToast);
+    
+    // Add active class after a small delay to trigger animation
+    setTimeout(() => {
+        proverbToast.classList.add('active');
+    }, 100);
+    
+    // Remove toast after 5 seconds
+    setTimeout(() => {
+        proverbToast.classList.remove('active');
+        setTimeout(() => {
+            document.body.removeChild(proverbToast);
+        }, 300); // Wait for fade out animation
+    }, 5000);
 }
 
 // Initialize the app
