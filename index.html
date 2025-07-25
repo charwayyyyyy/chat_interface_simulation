@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kokonsa - Chat Interface Simulation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+    <div class="app-container">
+        <object class="animated-shapes" type="image/svg+xml" data="img/animated-shapes.svg"></object>
+        <!-- Adinkra Symbol Toggle -->
+        <div class="adinkra-toggle" id="adinkra-toggle">
+            <img src="img/adinkra.svg" alt="Adinkra Symbol">
+        </div>
+        
+        <!-- Sidebar with chat list -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-title">Kokonsa</h1>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Avatar">
+                    <span class="status-indicator online"></span>
+                </div>
+                <div class="user-info">
+                    <h3>Ama Serwaa</h3>
+                    <p class="status-text">Online</p>
+                </div>
+            </div>
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search chats..." class="search-input">
+            </div>
+            <div class="chat-list">
+                <div class="chat-group">
+                    <h3 class="group-title">Recent Chats</h3>
+                    <div class="chat-item active" data-chat="kwame">
+                        <div class="avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kwame Avatar">
+                            <span class="status-indicator online"></span>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-header">
+                                <h4>Kwame Boateng</h4>
+                                <span class="time">12:42 PM</span>
+                            </div>
+                            <p class="last-message">Are you coming to the event tonight?</p>
+                        </div>
+                        <div class="chat-indicators">
+                            <span class="unread-count">3</span>
+                        </div>
+                    </div>
+                    <div class="chat-item" data-chat="the-boys">
+                        <div class="avatar group-avatar">
+                            <div class="stacked-avatars">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Group Member">
+                                <img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Group Member">
+                            </div>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-header">
+                                <h4>The Boys</h4>
+                                <span class="time">Yesterday</span>
+                            </div>
+                            <p class="last-message">Kofi: Let's meet at Osu this weekend</p>
+                        </div>
+                    </div>
+                    <div class="chat-item" data-chat="sister-szn">
+                        <div class="avatar group-avatar">
+                            <div class="stacked-avatars">
+                                <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Group Member">
+                                <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Group Member">
+                            </div>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-header">
+                                <h4>SisterSzn</h4>
+                                <span class="time">2 days ago</span>
+                            </div>
+                            <p class="last-message">Abena: Did you see the new fabric?</p>
+                        </div>
+                    </div>
+                    <div class="chat-item" data-chat="akosua">
+                        <div class="avatar">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Akosua Avatar">
+                            <span class="status-indicator idle"></span>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-header">
+                                <h4>Akosua Mensah</h4>
+                                <span class="time">3 days ago</span>
+                            </div>
+                            <p class="last-message">Let me know when you're free</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-group">
+                    <h3 class="group-title">Groups</h3>
+                    <div class="chat-item" data-chat="family">
+                        <div class="avatar group-avatar">
+                            <div class="stacked-avatars">
+                                <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Group Member">
+                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Group Member">
+                            </div>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-header">
+                                <h4>Family</h4>
+                                <span class="time">1 week ago</span>
+                            </div>
+                            <p class="last-message">Mom: Don't forget Sunday dinner</p>
+                        </div>
+                    </div>
+                    <div class="chat-item" data-chat="work">
+                        <div class="avatar group-avatar">
+                            <div class="stacked-avatars">
+                                <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Group Member">
+                                <img src="https://randomuser.me/api/portraits/women/76.jpg" alt="Group Member">
+                            </div>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-header">
+                                <h4>Work Team</h4>
+                                <span class="time">1 week ago</span>
+                            </div>
+                            <p class="last-message">Boss: Meeting at 9am tomorrow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main chat area -->
+        <main class="chat-area">
+            <div class="chat-header">
+                <div class="chat-user-info">
+                    <div class="avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kwame Avatar">
+                        <span class="status-indicator online"></span>
+                    </div>
+                    <div>
+                        <h2>Kwame Boateng</h2>
+                        <p class="status-text typing-effect" data-text="Online - typing">Online - typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></p>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="action-btn" title="Make voice call"></button>
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="date-divider">
+                    <span>Today</span>
+                </div>
+                
+                <div class="message received">
+                    <div class="avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kwame Avatar">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>Hey Ama! How are you doing today?</p>
+                            <span class="time">10:30 AM</span>
+                        </div>
+                        <div class="message-reactions">
+                            <div class="reaction">👍 1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message sent">
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>I'm good, thanks! Just finished my morning meeting.</p>
+                            <span class="time">10:32 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message received">
+                    <div class="avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kwame Avatar">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>Great! Are you coming to the event tonight at Osu?</p>
+                            <span class="time">10:33 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message received">
+                    <div class="avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kwame Avatar">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>It's going to be amazing! Everyone will be there.</p>
+                            <span class="time">10:33 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message sent">
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>I'm not sure yet. What time does it start?</p>
+                            <span class="time">10:40 AM</span>
+                        </div>
+                        <div class="message-reactions">
+                            <div class="reaction">🤔 1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message received">
+                    <div class="avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kwame Avatar">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>Around 8 PM. I can pick you up if you want!</p>
+                            <span class="time">10:42 AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message received">
+                    <div class="avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kwame Avatar">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>Are you coming to the event tonight?</p>
+                            <span class="time">12:42 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="emoji-button">
+                    <i class="far fa-smile"></i>
+                </div>
+                <div class="emoji-picker" id="emoji-picker">
+                    <div class="emoji-categories">
+                        <button class="emoji-category active" data-category="recent">🕒</button>
+                        <button class="emoji-category" data-category="smileys">😀</button>
+                        <button class="emoji-category" data-category="people">👋</button>
+                        <button class="emoji-category" data-category="animals">🐶</button>
+                        <button class="emoji-category" data-category="food">🍔</button>
+                        <button class="emoji-category" data-category="activities">⚽</button>
+                        <button class="emoji-category" data-category="travel">🚗</button>
+                        <button class="emoji-category" data-category="objects">💡</button>
+                        <button class="emoji-category" data-category="symbols">❤️</button>
+                        <button class="emoji-category" data-category="flags">🏳️</button>
+                    </div>
+                    <div class="emoji-container">
+                        <div class="emoji" data-emoji="😀">😀</div>
+                        <div class="emoji" data-emoji="😁">😁</div>
+                        <div class="emoji" data-emoji="😂">😂</div>
+                        <div class="emoji" data-emoji="🤣">🤣</div>
+                        <div class="emoji" data-emoji="😃">😃</div>
+                        <div class="emoji" data-emoji="😄">😄</div>
+                        <div class="emoji" data-emoji="😅">😅</div>
+                        <div class="emoji" data-emoji="😆">😆</div>
+                        <div class="emoji" data-emoji="😉">😉</div>
+                        <div class="emoji" data-emoji="😊">😊</div>
+                        <div class="emoji" data-emoji="😋">😋</div>
+                        <div class="emoji" data-emoji="😎">😎</div>
+                        <div class="emoji" data-emoji="😍">😍</div>
+                        <div class="emoji" data-emoji="😘">😘</div>
+                        <div class="emoji" data-emoji="😗">😗</div>
+                        <div class="emoji" data-emoji="😙">😙</div>
+                        <div class="emoji" data-emoji="😚">😚</div>
+                        <div class="emoji" data-emoji="🙂">🙂</div>
+                        <div class="emoji" data-emoji="🤗">🤗</div>
+                        <div class="emoji" data-emoji="🤩">🤩</div>
+                        <div class="emoji" data-emoji="🤔">🤔</div>
+                        <div class="emoji" data-emoji="🤨">🤨</div>
+                        <div class="emoji" data-emoji="😐">😐</div>
+                        <div class="emoji" data-emoji="😑">😑</div>
+                        <div class="emoji" data-emoji="😶">😶</div>
+                        <div class="emoji" data-emoji="🙄">🙄</div>
+                        <div class="emoji" data-emoji="😏">😏</div>
+                        <div class="emoji" data-emoji="😣">😣</div>
+                        <div class="emoji" data-emoji="😥">😥</div>
+                        <div class="emoji" data-emoji="😮">😮</div>
+                        <div class="emoji" data-emoji="🤐">🤐</div>
+                        <div class="emoji" data-emoji="😯">😯</div>
+                        <div class="emoji" data-emoji="😪">😪</div>
+                        <div class="emoji" data-emoji="😫">😫</div>
+                        <div class="emoji" data-emoji="😴">😴</div>
+                        <div class="emoji" data-emoji="😌">😌</div>
+                        <div class="emoji" data-emoji="😛">😛</div>
+                        <div class="emoji" data-emoji="😜">😜</div>
+                        <div class="emoji" data-emoji="😝">😝</div>
+                        <div class="emoji" data-emoji="🤤">🤤</div>
+                        <div class="emoji" data-emoji="😒">😒</div>
+                        <div class="emoji" data-emoji="😓">😓</div>
+                        <div class="emoji" data-emoji="😔">😔</div>
+                        <div class="emoji" data-emoji="😕">😕</div>
+                        <div class="emoji" data-emoji="🙃">🙃</div>
+                        <div class="emoji" data-emoji="🤑">🤑</div>
+                        <div class="emoji" data-emoji="😲">😲</div>
+                        <div class="emoji" data-emoji="☹️">☹️</div>
+                        <div class="emoji" data-emoji="🙁">🙁</div>
+                        <div class="emoji" data-emoji="😖">😖</div>
+                        <div class="emoji" data-emoji="😞">😞</div>
+                        <div class="emoji" data-emoji="😟">😟</div>
+                        <div class="emoji" data-emoji="😤">😤</div>
+                        <div class="emoji" data-emoji="😢">😢</div>
+                        <div class="emoji" data-emoji="😭">😭</div>
+                        <div class="emoji" data-emoji="😦">😦</div>
+                        <div class="emoji" data-emoji="😧">😧</div>
+                        <div class="emoji" data-emoji="😨">😨</div>
+                        <div class="emoji" data-emoji="😩">😩</div>
+                        <div class="emoji" data-emoji="🤯">🤯</div>
+                        <div class="emoji" data-emoji="😬">😬</div>
+                        <div class="emoji" data-emoji="😰">😰</div>
+                        <div class="emoji" data-emoji="😱">😱</div>
+                        <div class="emoji" data-emoji="😳">😳</div>
+                        <div class="emoji" data-emoji="🤪">🤪</div>
+                        <div class="emoji" data-emoji="😵">😵</div>
+                        <div class="emoji" data-emoji="😡">😡</div>
+                        <div class="emoji" data-emoji="😠">😠</div>
+                        <div class="emoji" data-emoji="🤬">🤬</div>
+                        <div class="emoji" data-emoji="😷">😷</div>
+                        <div class="emoji" data-emoji="🤒">🤒</div>
+                        <div class="emoji" data-emoji="🤕">🤕</div>
+                        <div class="emoji" data-emoji="🤢">🤢</div>
+                        <div class="emoji" data-emoji="🤮">🤮</div>
+                        <div class="emoji" data-emoji="🤧">🤧</div>
+                        <div class="emoji" data-emoji="😇">😇</div>
+                        <div class="emoji" data-emoji="🤠">🤠</div>
+                        <div class="emoji" data-emoji="🤡">🤡</div>
+                        <div class="emoji" data-emoji="🤥">🤥</div>
+                        <div class="emoji" data-emoji="🤫">🤫</div>
+                        <div class="emoji" data-emoji="🤭">🤭</div>
+                        <div class="emoji" data-emoji="🧐">🧐</div>
+                        <div class="emoji" data-emoji="🤓">🤓</div>
+                        <div class="emoji" data-emoji="😈">😈</div>
+                        <div class="emoji" data-emoji="👋">👋</div>
+                        <div class="emoji" data-emoji="👍">👍</div>
+                        <div class="emoji" data-emoji="👎">👎</div>
+                        <div class="emoji" data-emoji="❤️">❤️</div>
+                        <div class="emoji" data-emoji="🔥">🔥</div>
+                        <div class="emoji" data-emoji="🎉">🎉</div>
+                    </div>
+                </div>
+                <div class="attachment-button">
+                    <i class="fas fa-paperclip"></i>
+                </div>
+                <div class="input-container">
+                    <input type="text" placeholder="Type a message..." id="message-input">
+                </div>
+                <button class="send-button" id="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </main>
+
+        <!-- Notification toast -->
+        <div class="notification-toast" id="notification-toast">
+            <div class="avatar">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Akosua Avatar">
+            </div>
+            <div class="notification-content">
+                <h4>Akosua Mensah</h4>
+                <p>Hey, are we still meeting tomorrow?</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/sounds.js"></script>
+    <script src="js/script.js"></script>
+    
+    <!-- Sound Toggle Button -->
+    <div class="sound-toggle" id="sound-toggle">
+        <i class="fas fa-volume-up"></i>
+    </div>
+</body>
+</html>

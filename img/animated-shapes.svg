@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600" fill="none">
+  <!-- Animated Shapes for Background -->
+  
+  <!-- Circle 1 -->
+  <circle cx="100" cy="100" r="40" fill="rgba(247, 183, 49, 0.2)">
+    <animate attributeName="cy" values="100;150;100" dur="10s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="100;150;100" dur="12s" repeatCount="indefinite" />
+    <animate attributeName="r" values="40;60;40" dur="8s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="6s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Circle 2 -->
+  <circle cx="500" cy="150" r="50" fill="rgba(56, 103, 214, 0.15)">
+    <animate attributeName="cy" values="150;100;150" dur="12s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="500;450;500" dur="10s" repeatCount="indefinite" />
+    <animate attributeName="r" values="50;70;50" dur="9s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.15;0.3;0.15" dur="7s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Circle 3 -->
+  <circle cx="300" cy="500" r="60" fill="rgba(235, 59, 90, 0.1)">
+    <animate attributeName="cy" values="500;450;500" dur="15s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="300;350;300" dur="13s" repeatCount="indefinite" />
+    <animate attributeName="r" values="60;80;60" dur="11s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.1;0.25;0.1" dur="9s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Blob 1 -->
+  <path d="M200 300 Q230 250 280 280 Q330 310 300 350 Q270 390 220 370 Q170 350 200 300 Z" fill="rgba(247, 183, 49, 0.15)">
+    <animate attributeName="d" values="M200 300 Q230 250 280 280 Q330 310 300 350 Q270 390 220 370 Q170 350 200 300 Z; M210 310 Q250 240 290 270 Q340 300 310 360 Q280 400 230 380 Q180 360 210 310 Z; M200 300 Q230 250 280 280 Q330 310 300 350 Q270 390 220 370 Q170 350 200 300 Z" dur="20s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.15;0.25;0.15" dur="10s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Blob 2 -->
+  <path d="M400 200 Q430 150 480 180 Q530 210 500 250 Q470 290 420 270 Q370 250 400 200 Z" fill="rgba(56, 103, 214, 0.1)">
+    <animate attributeName="d" values="M400 200 Q430 150 480 180 Q530 210 500 250 Q470 290 420 270 Q370 250 400 200 Z; M410 210 Q450 140 490 170 Q540 200 510 260 Q480 300 430 280 Q380 260 410 210 Z; M400 200 Q430 150 480 180 Q530 210 500 250 Q470 290 420 270 Q370 250 400 200 Z" dur="18s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.1;0.2;0.1" dur="12s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Blob 3 -->
+  <path d="M100 400 Q130 350 180 380 Q230 410 200 450 Q170 490 120 470 Q70 450 100 400 Z" fill="rgba(235, 59, 90, 0.08)">
+    <animate attributeName="d" values="M100 400 Q130 350 180 380 Q230 410 200 450 Q170 490 120 470 Q70 450 100 400 Z; M110 410 Q150 340 190 370 Q240 400 210 460 Q180 500 130 480 Q80 460 110 410 Z; M100 400 Q130 350 180 380 Q230 410 200 450 Q170 490 120 470 Q70 450 100 400 Z" dur="22s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.08;0.16;0.08" dur="14s" repeatCount="indefinite" />
+  </path>
+  
+  <!-- Triangle 1 -->
+  <polygon points="450,450 500,500 400,500" fill="rgba(247, 183, 49, 0.12)">
+    <animate attributeName="points" values="450,450 500,500 400,500; 460,440 510,490 410,490; 450,450 500,500 400,500" dur="16s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.12;0.22;0.12" dur="8s" repeatCount="indefinite" />
+  </polygon>
+  
+  <!-- Triangle 2 -->
+  <polygon points="150,150 200,200 100,200" fill="rgba(56, 103, 214, 0.08)">
+    <animate attributeName="points" values="150,150 200,200 100,200; 160,140 210,190 110,190; 150,150 200,200 100,200" dur="14s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.08;0.18;0.08" dur="10s" repeatCount="indefinite" />
+  </polygon>
+</svg>
